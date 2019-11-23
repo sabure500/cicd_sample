@@ -9,4 +9,4 @@ jobs:
       - name: gradle test
         run: |
           ls -l
-          ./gradlew test
+          echo $PWD

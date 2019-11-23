@@ -16,7 +16,7 @@ jobs:
           ./gradlew test
   show-successed:
     needs: gradle-test
-    runs-on: 
+    steps: 
       - uses: docker://ubuntu:latest
       - name: show Successed
         run: |

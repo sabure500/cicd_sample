@@ -1,6 +1,9 @@
 name: Gradle test
 
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - master
 
 jobs:
   gradle-test:
@@ -14,13 +17,4 @@ jobs:
       - name: test with Gradle
         run: |
           ./gradlew test
-          ls -l
-  show-successed:
-    needs: gradle-test
-    runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@v1
-      - name: show Successed
-        run: |
-          echo $PWD
           ls -l

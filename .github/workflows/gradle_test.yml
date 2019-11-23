@@ -14,3 +14,10 @@ jobs:
       - name: test with Gradle
         run: |
           ./gradlew test
+  show-successed:
+    needs: gradle-test
+    runs-on: 
+      - uses: docker://ubuntu:latest
+      - name: show Successed
+        run: |
+          ls -l

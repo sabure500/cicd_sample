@@ -17,3 +17,8 @@ jobs:
       - name: test with Gradle
         run: |
           ./gradlew test
+      - name: show
+        run: |
+          docker images
+          echo loginsuruyo
+          echo ${{secrets.KEY_FILE}} | docker login -u _json_key --password-stdin https://gcr.io

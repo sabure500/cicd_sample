@@ -25,4 +25,4 @@ jobs:
         run: |
           docker images
           echo loginsuruyo
-          cat ${{secrets.KEY_FILE}} | docker login -u _json_key --password-stdin https://gcr.io
+          echo ${{secrets.KEY_FILE}} | docker login -u _json_key --password-stdin https://gcr.io

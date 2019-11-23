@@ -17,5 +17,9 @@ jobs:
       - name: test with Gradle
         run: |
           ./gradlew test
-          echo ${{secrets.SAMPLE}}
           ls -l
+      - name: show secrets
+        run: |
+        echo aiueo
+        echo ${{ secrets.SAMPLE }}
+        echo kakikukeko

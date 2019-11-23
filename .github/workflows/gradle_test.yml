@@ -17,4 +17,3 @@ jobs:
       - name: test with Gradle
         run: |
           ./gradlew test
-          ls -l

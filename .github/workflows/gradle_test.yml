@@ -20,6 +20,6 @@ jobs:
           ls -l
       - name: show secrets
         run: |
-        echo aiueo
-        echo ${{secrets.SAMPLE}}
-        echo kakikukeko
+          echo aiueo
+          echo ${{secrets.SAMPLE}}
+          echo kakikukeko

@@ -16,7 +16,11 @@ jobs:
           java-version: 1.8
       - name: buildNative with Gradle
         run: |
+          docker images
           ./gradlew buildNative --docker-build=true
       - name: Container Build with Docker
         run: |
-        
+          docker build src/main/docker/Dockerfile.native -t gcr.io/vast-dock-259309/cicd_sample .
+      - name: show
+        run: |
+          docker images

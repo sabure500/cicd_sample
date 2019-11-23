@@ -20,7 +20,9 @@ jobs:
           ./gradlew buildNative --docker-build=true
       - name: Container Build with Docker
         run: |
-          docker build src/main/docker/Dockerfile.native -t gcr.io/vast-dock-259309/cicd_sample .
+          docker build -f src/main/docker/Dockerfile.native -t gcr.io/vast-dock-259309/cicd_sample .
       - name: show
         run: |
           docker images
+          echo loginsuruyo
+          cat ${{secrets.KEY_FILE}} | docker login -u _json_key --password-stdin https://gcr.io

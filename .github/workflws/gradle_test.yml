@@ -1,0 +1,14 @@
+name: Gradle test
+
+on:
+  push:
+
+jobs:
+  gradle-test:
+    name: Gradle test
+    runs-on: ubuntu-latest
+    steps:
+      - name: gradle test
+        run: |
+          ls -l
+          ./gradlew test

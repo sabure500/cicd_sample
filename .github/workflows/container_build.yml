@@ -21,8 +21,9 @@ jobs:
       - name: Container Build with Docker
         run: |
           docker build -f src/main/docker/Dockerfile.native -t gcr.io/vast-dock-259309/cicd_sample .
-      - name: show
-        run: |
-          docker images
-          echo loginsuruyo
-          echo ${{secrets.KEY_FILE}} | docker login -u _json_key --password-stdin https://gcr.io
+      - name: login
+        uses: actions/docker/login@master
+        env:
+          DOCKER_REGISTRY_URL: gcr.io
+          DOCKER_USERNAME: _json_key
+          DOCKER_PASSWORD: ${{secrets.KEY_FILE}}

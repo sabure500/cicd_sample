@@ -14,12 +14,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: login
+        run: |
+          docker login gcr.io --username _json_key --password ${{secrets.KEY_FILE}}
       - name: test with Gradle
         run: |
           ./gradlew test
-      - name: login
-        uses: actions/docker/login@master
-        env:
-          DOCKER_REGISTRY_URL: gcr.io
-          DOCKER_USERNAME: _json_key
-          DOCKER_PASSWORD: ${{secrets.KEY_FILE}}

@@ -18,7 +18,9 @@ jobs:
     needs: gradle-test
     runs-on: ubuntu-latest
     steps: 
-      - uses: docker://ubuntu:latest
+      - uses: docker://tomcat:9.0.29-jdk13-openjdk-oracle
       - name: show Successed
         run: |
+          echo $PWD
+          echo $CATALINA_HOME
           ls -l

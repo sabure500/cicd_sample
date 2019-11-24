@@ -16,7 +16,7 @@ jobs:
           java-version: 1.8
       - name: login
         run: |
-          echo ${{secrets.KEY_FILE}} | docker login -u _json_key --password-stdin gcr.io
+          echo ${{secrets.GCLOUD_AUTH}} | docker login -u _json_key --password-stdin gcr.io
       - name: test with Gradle
         run: |
           ./gradlew test

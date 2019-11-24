@@ -5,6 +5,8 @@ on:
     branches-ignore:
       - master
 
+env:
+  GCP_PROJECT_ID: ${{secrets.GCP_PROJECT_ID}}
 jobs:
   gradle-test:
     runs-on: ubuntu-latest
@@ -14,11 +16,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: login
+      - name: Setup Google Cloud
+        uses: actions/gcloud/auth@master
         env:
           GCLOUD_AUTH: ${{secrets.GCLOUD_AUTH}}
+      - name: Docker login
         run: |
-          echo $GCLOUD_AUTH | docker login -u _json_key --password-stdin gcr.io
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
       - name: test with Gradle
         run: |
           ./gradlew test

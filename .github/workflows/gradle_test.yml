@@ -16,15 +16,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Setup Google Cloud
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        with:
-          version: '270.0.0'
-          service_account_key: ${{secrets.GCLOUD_AUTH}}
-      - run: gcloud info
-      - name: Docker login
-        run: |
-          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
       - name: test with Gradle
         run: |
           ./gradlew test

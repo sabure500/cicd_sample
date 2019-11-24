@@ -5,6 +5,11 @@ on:
     branches:
       - master
 
+env:
+  GCP_PROJECT_ID: ${{secrets.GCP_PROJECT_ID}}
+  ZONE: ${{secrets.ZONE}}
+  IMAGE: cicd_sample
+
 jobs:
   container-create:
     runs-on: ubuntu-latest
@@ -20,10 +25,17 @@ jobs:
           ./gradlew buildNative --docker-build=true
       - name: Container Build with Docker
         run: |
-          docker build -f src/main/docker/Dockerfile.native -t gcr.io/vast-dock-259309/cicd_sample .
-      - name: login
-        uses: actions/docker/login@master
-        env:
-          DOCKER_REGISTRY_URL: gcr.io
-          DOCKER_USERNAME: _json_key
-          DOCKER_PASSWORD: ${{secrets.KEY_FILE}}
+          docker build -f src/main/docker/Dockerfile.native -t "$ZONE"/"$GCP_PROJECT_ID"/"$IMAGE" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" .
+      - name: Setup Google Cloud
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '270.0.0'
+          service_account_key: ${{secrets.GCLOUD_AUTH}}
+      - name: Docker login
+        run: |
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin $ZONE
+      - name: Container Push
+        run: |
+          docker push $ZONE/$GCP_PROJECT_ID/$IMAGE:$GITHUB_SHA

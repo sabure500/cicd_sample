@@ -25,7 +25,7 @@ jobs:
           ./gradlew buildNative --docker-build=true
       - name: Container Build with Docker
         run: |
-          docker build -f src/main/docker/Dockerfile.native -t "$ZONE"/"$GCP_PROJECT_ID"/"$IMAGE" \
+          docker build -f src/main/docker/Dockerfile.native -t "$ZONE"/"$GCP_PROJECT_ID"/"$IMAGE":"$GITHUB_SHA" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" .
       - name: Setup Google Cloud

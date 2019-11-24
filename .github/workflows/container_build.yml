@@ -1,4 +1,4 @@
-name: Gradle Build and Container create
+name: Gradle Build and Container Build/Push
 
 on:
   push:
@@ -21,7 +21,6 @@ jobs:
           java-version: 1.8
       - name: buildNative with Gradle
         run: |
-          docker images
           ./gradlew buildNative --docker-build=true
       - name: Container Build with Docker
         run: |

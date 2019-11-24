@@ -21,7 +21,7 @@ jobs:
         with:
           version: '270.0.0'
           service_account_key: ${{secrets.GCLOUD_AUTH}}
-        run: gcloud info
+      - run: gcloud info
       - name: Docker login
         run: |
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
